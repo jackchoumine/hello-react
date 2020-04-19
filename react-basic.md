@@ -2,7 +2,7 @@
  * @Description: react 基础
  * @Date: 2020-04-19 15:51:27
  * @Author: JackChouMine
- * @LastEditTime: 2020-04-19 18:44:19
+ * @LastEditTime: 2020-04-20 00:21:56
  * @LastEditors: JackChouMine
  -->
 
@@ -272,3 +272,171 @@ constructor(props) {
 ```
 
 UI = Component(props,state), 组件可看成一个函数，输入外部的属性 props 和内部状态 state, 输出组件的 UI。
+
+4. 无状态组件
+   上面的 Book 组件内部有 state，组件需要维持这个状态，叫作状态组件， 图书列表 Books，没有定义 state，叫作无状态组件。
+   无状态组件不关注内部状态，专注 UI 展示，还可使用函数还定义无状态组件，此时组件也叫函数组件，props 作为函数参数传入。
+
+Book 组件维持 like 和 dislike 状态，这些属性作为书籍的属性传入更加适合，故可以把 Book 组件定义成函数组件，专注展示书籍信息，数据和事件处理函数从外部传入。
+
+一个函数组件接收 props 作为参数，返回代表 UI 的 react 元素。
+
+```js
+function Welcome(props) {
+  return <h1>hello,{props.name}</h1>
+}
+```
+
+将 Book 组件改成函数组件
+
+```js
+/*
+ * @Description: 函数组件
+ * @Date: 2020-04-19 19:04:00
+ * @Author: JackChouMine
+ * @LastEditTime: 2020-04-19 23:51:01
+ * @LastEditors: JackChouMine
+ */
+import React from 'react'
+function BookFun(props) {
+  const {
+    book: { title, author, version, bookId, dislike, like },
+  } = props // 所有传递进来的属性会组成一个简单的对象
+  const handleLike = () => {
+    props.onLike(bookId)
+  }
+  const Book = (
+    <li>
+      <h2>{title}</h2>
+      <p>作者：{author}</p>
+      <p>版本：{version}</p>
+      <button onClick={handleLike}>喜欢</button>
+      &nbsp;&nbsp;
+      <span>{like}</span>
+      <br />
+      <button
+        onClick={(event) => {
+          console.log(event) //使用箭头函数绑定事件处理器
+          props.onDislike(bookId)
+        }}
+      >
+        不喜欢
+      </button>
+      &nbsp;&nbsp;
+      <span>{dislike}</span>
+    </li>
+  )
+  return Book
+}
+export default BookFun
+```
+
+注意点：
+
+1. 子组件的事件处理函数是通过 `props` 传递进来，并且不需要处理 this，因为函数组件没有使用 new 调用；
+2. 所有传递给组件的属性，都会组成一个 props 对象的形式传递进来，**函数也在该对象里**。
+
+使用函数函数组件
+
+```js
+import React, { Component } from 'react'
+import Book from './bookFun'
+class Books extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      books: [],
+    }
+    this.timer = ''
+    this.handleLike = this.handleLike.bind(this) // es6 的 class，需要手动绑定 this
+    // this.handleDislike = this.handleDislike.bind(this)
+  }
+  // 在组件挂载后的模拟服务器返回数据
+  componentDidMount() {
+    this.timer = setTimeout(() => {
+      // 使用 setSate 改变状态,会引发重新渲染
+      this.setState({
+        books: [
+          {
+            title: 'react入门',
+            author: '小马',
+            version: '第二版',
+            like: 0,
+            dislike: 0,
+            bookId: (Math.random() + 1).toString(36).substring(2), // 随机字符串
+          },
+          {
+            title: 'react进阶',
+            author: '小明',
+            version: '第三版',
+            like: 0,
+            dislike: 0,
+            bookId: (Math.random() + 1).toString(36).substring(2),
+          },
+          {
+            title: 'react专家之路',
+            author: '小华',
+            version: '第一版',
+            like: 0,
+            dislike: 0,
+            bookId: (Math.random() + 1).toString(36).substring(2),
+          },
+        ],
+      })
+    }, 100)
+  }
+  componentWillUnmount() {
+    if (this.timer) clearTimeout(this.timer)
+  }
+  handleDislike(id) {
+    const books = this.state.books.map((book) => {
+      return book.bookId === id ? { ...book, dislike: ++book.dislike } : book
+    })
+    this.setState({
+      books,
+    })
+  }
+  handleLike(id) {
+    const books = this.state.books.map((book) => {
+      return book.bookId === id ? { ...book, like: ++book.like } : book
+    })
+    this.setState({
+      books,
+    })
+  }
+  render() {
+    const Books = (
+      <ol>
+        {this.state.books.map((book) => (
+          <Book
+            key={book.bookId}
+            book={book} // 书籍信息保存在 book 属性你
+            onLike={this.handleLike}
+            onDislike={(id) => {
+              // 自定义事件，使用箭头函数绑定事件处理器
+              this.handleDislike(id)
+            }}
+          />
+        ))}
+      </ol>
+    )
+    return Books
+  }
+}
+export default Books
+```
+
+主要改进：
+
+1. 将书籍信息作为图书列表组件的一个状态，并从服务器请求数据以更新状态。
+2. 将图书信息放在一个对象中，并通过 `props` 传递给传递给图书组件；
+3. 图书组件（子组件）内部的事件处理函数，也是从通过 `props` 传递进来的；
+4. 处理图书信息的逻辑在图书列表组件（父组件）定义，在子组件中调用；
+
+函数组件只关注**数据输入**、**展示数据**，甚至 **业务逻辑都可以从父组件传入**，子组件只负责调用，这样才能保证组件*高内聚、低耦合*，复用性好。
+
+<!-- TODO -->
+
+比较 react 自定义事件和 vue 自定义事件的区别：
+
+几中事件绑定的区别：
