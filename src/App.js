@@ -2,7 +2,7 @@
  * @Description: app 组件
  * @Date: 2020-04-19 15:27:52
  * @Author: JackChouMine
- * @LastEditTime: 2020-04-19 16:49:09
+ * @LastEditTime: 2020-04-19 18:24:40
  * @LastEditors: JackChouMine
  */
 import React from 'react'
@@ -29,7 +29,7 @@ function App() {
         <h1>hello react</h1>
         <ul>
           {todos.map((todo) => (
-            <li>{todo}</li>
+            <li key={todo}>{todo}</li>
           ))}
         </ul>
       </header>

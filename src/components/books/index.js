@@ -2,7 +2,7 @@
  * @Description: 书组件
  * @Date: 2020-04-19 17:05:20
  * @Author: JackChouMine
- * @LastEditTime: 2020-04-19 17:55:12
+ * @LastEditTime: 2020-04-19 18:23:14
  * @LastEditors: JackChouMine
  */
 import React, { Component } from 'react'
@@ -20,6 +20,7 @@ class BookComponent extends Component {
         {/* 所有属性会组成一个对象传递给 props */}
         {bookList.map((book) => (
           <Book
+            key={book.title}
             title={book.title}
             author={book.author}
             version={book.version}

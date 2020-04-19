@@ -2,7 +2,7 @@
  * @Description: react 基础
  * @Date: 2020-04-19 15:51:27
  * @Author: JackChouMine
- * @LastEditTime: 2020-04-19 17:58:50
+ * @LastEditTime: 2020-04-19 18:44:19
  * @LastEditors: JackChouMine
  -->
 
@@ -183,3 +183,92 @@ class BookComponent extends Component {
 }
 export default BookComponent
 ```
+
+3. 组件状态 state
+
+state 是组件的内部状态，state 的变化会反映到组件上。在构造方法中的 `this.state` 对象中定义初始状态，使用`this.setState`方法改变组件状态（**唯一改变组件状态的方法**），组件会重新渲染。
+
+给每一本书添加一个点赞按钮，没有点击一次，页面上喜欢就增加一次。
+
+```js
+class BookComponent extends Component {
+  constructor(props) {
+    // 构造函数介绍传递进来的属性
+    super(props)
+    this.state = {
+      // 定义内部状态
+      like: 0,
+      dislike: 0,
+    }
+  }
+  vote() {
+    let { like } = this.state
+    // this.state = {
+    //   // 不能直接改变 state
+    //   vote: vote,
+    // }
+    this.setState({
+      like: ++like,
+    })
+  }
+  hate() {
+    let { dislike } = this.state
+    this.setState({
+      dislike: ++dislike,
+    })
+  }
+  render() {
+    const { title, author, version } = this.props // 所有传递进来的属性会组成一个简单的对象
+    const Book = (
+      <li>
+        <h2>{title}</h2>
+        <p>作者：{author}</p>
+        <p>版本：{version}</p>
+        <button
+          onClick={() => {
+            this.vote()
+          }}
+        >
+          喜欢
+        </button>
+        &nbsp;&nbsp;
+        <span>{this.state.like}</span>
+        <br />
+        <button
+          onClick={() => {
+            this.hate()
+          }}
+        >
+          不喜欢
+        </button>
+        &nbsp;&nbsp;
+        <span>{this.state.dislike}</span>
+      </li>
+    )
+    return Book
+  }
+}
+export default BookComponent
+```
+
+```js
+constructor(props) {
+    // 构造函数介绍传递进来的属性
+    super(props) // 调用父类的构造函数
+    this.state = {
+      // 定义内部状态
+      like: 0,
+      dislike: 0,
+    }
+  }
+  vote() {
+    // ++this.state.like //不能直接修改状态
+    let { like } = this.state
+    this.setState({
+      // like: ++this.state.like,// 不能直接修改state
+      like: ++like,
+    })
+  }
+```
+
+UI = Component(props,state), 组件可看成一个函数，输入外部的属性 props 和内部状态 state, 输出组件的 UI。
