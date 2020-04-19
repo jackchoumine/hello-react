@@ -2,7 +2,7 @@
  * @Description: react 基础
  * @Date: 2020-04-19 15:51:27
  * @Author: JackChouMine
- * @LastEditTime: 2020-04-20 00:21:56
+ * @LastEditTime: 2020-04-20 01:22:37
  * @LastEditors: JackChouMine
  -->
 
@@ -435,8 +435,34 @@ export default Books
 
 函数组件只关注**数据输入**、**展示数据**，甚至 **业务逻辑都可以从父组件传入**，子组件只负责调用，这样才能保证组件*高内聚、低耦合*，复用性好。
 
-<!-- TODO -->
+<!-- todo -->
 
 比较 react 自定义事件和 vue 自定义事件的区别：
 
 几中事件绑定的区别：
+
+5. 属性校验和默认属性
+
+和 vue 一样，react 也可以可对 props 进行校验和提供默认值。react 通过`propTypes` 和 `PropTypes` 实现该功能。
+propTypes 的 key 是 props 的属性，值从 PropTypes 中获取。
+
+给图书图书的函数组件添加 props 检查：
+
+```js
+// props 类型约束
+// todo 如何自定义检查函数
+BookFun.propTypes = {
+  book: PropTypes.shape({
+    title: PropTypes.string,
+    authors: PropTypes.arrayOf(PropTypes.string).isRequired,
+    version: PropTypes.string,
+    price: PropTypes.number,
+    like: PropTypes.number,
+    disLike: PropTypes.number,
+  }).isRequired,
+  onLike: PropTypes.func.isRequired,
+  onDislike: PropTypes.func.isRequired,
+}
+// todo 如何该props的内层属性设置默认值 属性默认值
+// BookFun.defaultProps = { book.price: 39 }
+```

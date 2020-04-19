@@ -2,13 +2,14 @@
  * @Description: 函数组件
  * @Date: 2020-04-19 19:04:00
  * @Author: JackChouMine
- * @LastEditTime: 2020-04-19 23:51:01
+ * @LastEditTime: 2020-04-20 01:21:21
  * @LastEditors: JackChouMine
  */
 import React from 'react'
+import PropTypes from 'prop-types'
 function BookFun(props) {
   const {
-    book: { title, author, version, bookId, dislike, like },
+    book: { title, authors, version, bookId, dislike, like, price = 39 },
   } = props // 所有传递进来的属性会组成一个简单的对象
   const handleLike = () => {
     props.onLike(bookId)
@@ -16,8 +17,9 @@ function BookFun(props) {
   const Book = (
     <li>
       <h2>{title}</h2>
-      <p>作者：{author}</p>
+      <p>作者：{authors.join('、')}</p>
       <p>版本：{version}</p>
+      <p>价格：{price}￥</p>
       <button onClick={handleLike}>喜欢</button>
       &nbsp;&nbsp;
       <span>{like}</span>
@@ -36,4 +38,20 @@ function BookFun(props) {
   )
   return Book
 }
+// props 类型约束
+// todo 如何自定义检查函数
+BookFun.propTypes = {
+  book: PropTypes.shape({
+    title: PropTypes.string,
+    authors: PropTypes.arrayOf(PropTypes.string).isRequired,
+    version: PropTypes.string,
+    price: PropTypes.number,
+    like: PropTypes.number,
+    disLike: PropTypes.number,
+  }).isRequired,
+  onLike: PropTypes.func.isRequired,
+  onDislike: PropTypes.func.isRequired,
+}
+// todo 如何该props的内层属性设置默认值 属性默认值
+// BookFun.defaultProps = { book.price: 39 }
 export default BookFun

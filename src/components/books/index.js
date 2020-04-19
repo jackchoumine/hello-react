@@ -2,7 +2,7 @@
  * @Description: 书组件
  * @Date: 2020-04-19 17:05:20
  * @Author: JackChouMine
- * @LastEditTime: 2020-04-19 23:51:37
+ * @LastEditTime: 2020-04-20 01:23:10
  * @LastEditors: JackChouMine
  */
 import React, { Component } from 'react'
@@ -25,15 +25,16 @@ class Books extends Component {
         books: [
           {
             title: 'react入门',
-            author: '小马',
+            authors: ['小马', '小天'],
             version: '第二版',
+            price: 45,
             like: 0,
             dislike: 0,
             bookId: (Math.random() + 1).toString(36).substring(2), // 随机字符串
           },
           {
             title: 'react进阶',
-            author: '小明',
+            authors: ['小明', '李兵', '二傻'],
             version: '第三版',
             like: 0,
             dislike: 0,
@@ -41,7 +42,7 @@ class Books extends Component {
           },
           {
             title: 'react专家之路',
-            author: '小华',
+            authors: ['小华'],
             version: '第一版',
             like: 0,
             dislike: 0,
