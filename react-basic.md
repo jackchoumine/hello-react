@@ -530,3 +530,12 @@ componentWillUnmount，执行一些清楚工作，比如清楚定时器，清除
       给组件赋值时，同时指定 this,可以传递额外的参数，会创建新函数，有性能损耗。
    3. 属性初始化语法：使用箭头函数定义方法，不必在 constructor 中指定 this，不会重复创建函数。
    4. 事件处理器的默认参数是 event 对象，需要传递 额外的参数时，使用箭头函数或者 bind。
+
+事件处理 DEMO：
+
+<p class="codepen" data-height="265" data-theme-id="light" data-default-tab="js,result" data-user="JackZhouMine" data-slug-hash="XvbXrN" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="处理事件">
+  <span>See the Pen <a href="https://codepen.io/JackZhouMine/pen/XvbXrN">
+  处理事件</a> by JackChouMine (<a href="https://codepen.io/JackZhouMine">@JackZhouMine</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
