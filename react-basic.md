@@ -466,17 +466,57 @@ BookFun.propTypes = {
 // todo 如何该props的内层属性设置默认值 属性默认值
 // BookFun.defaultProps = { book.price: 39 }
 ```
-6. 组件的样式
-  给组件添加样式的方式有两种：外部样式和内联样式
 
-  1. 外部样式引入的两种方式
-  在使用组件的 html 也页面中引入：
-  ```html
-  <link rel="stylesheet" type="text/css" href="style.css">
-  ```
-  样式表文件作用于整个应用的所 有组件(一般是基础样式表)。
-  把组件当成一个模块引入组件，样式 表作用于某个组件。在应用入口引入的样式也会作用于整个应用。
-  解决 calss 冲突————使用 CSS Modules。
-  2. 内联样式
-  将样式属性写成 JS 对象，使用 style 属性引入。
-  **具有中划线的样式属性，要采用小驼峰名名。**
+6. 组件的样式
+   给组件添加样式的方式有两种：外部样式和内联样式
+
+①. 外部样式引入的两种方式
+在使用组件的 html 也页面中引入：
+
+```html
+<link rel="stylesheet" type="text/css" href="style.css" />
+```
+
+样式表文件作用于整个应用的所 有组件(一般是基础样式表)。
+把组件当成一个模块引入组件，样式 表作用于某个组件。在应用入口引入的样式也会作用于整个应用。
+解决 calss 冲突————使用 CSS Modules。
+
+②. 内联样式
+将样式属性写成 JS 对象，使用 style 属性引入。
+**具有中划线的样式属性，要采用小驼峰名名。**
+
+7. react 元素和 react 组件
+   react 元素是一个描述 react 组件的 JS 对象，react 组件时一个 class 或者函数。
+
+8. 组件生命周期
+   组件从被创建到被销毁的过程称为组件的生命周期。React 为组件 在不同的生命周期阶段提供不同的生命周期方法，让开发者可以在组件 的生命周期过程中更好地控制组件的行为。通常，组件的生命周期可以 被分为三个阶段:**挂载阶段**、**更新阶段**、**卸载阶段**。_只有类组件有生命周期方法，函数组件没有。_
+
+Ⅰ . 挂载阶段
+
+初始化，挂载到 DOM，完成第一次渲染。依次调用到的函数为：
+
+① constructor -- constructor 通常用于初始化组 件的 state 以及绑定事件处理方法等工作。
+
+② componentWillMount -- 组件被挂载到 DOM 前调用，且只会被调用一次。很少用到，这里的操作可放在 constructor 中，调用`this.setState` 组件不会重新渲染。
+
+③ render -- 唯一必要的方法,返回一个 react 元素，渲染工作是 react 完成的。纯函数，不能执行用副作用的操作，不能调用 `this.setSate`，会改变组件状态进入死循环。
+
+④ componentDidMount -- 完成挂载，只执行一次。可获取 DOM，**经常在此进行服务器请求**。调用 `this.setSate` 会引起组件重新渲染。
+
+Ⅱ . 更新阶段
+
+组件被挂载到 DOM 后，组件的 props 或 state 可以引起组件更新。props 引起组件更新，是因为父组件调用了 render。依次调用的方法：
+
+① componentWillReceiveProps -- 接受父组件传递的 props 作为参数。 父组件 render 方法的调用 并不能保证传递给子组件的 props 发生变化，也就是说 nextProps 的值可 能和子组件当前 props 的值相等，因此往往需要比较 nextProps 和 this.props 来决定是否执行 props 发生变化后的逻辑，比如根据新的 props 调用 this.setState 触发组件的重新渲染。
+
+② shouldComponentUpdate -- 决定组件是否更新。返回 fasle，组件不会更新，后面的方法不调用。通过比较 nextProps、 nextState 和组件当前的 props、state 决定这个方法的返回结果。这个方法 可以用来减少组件不必要的渲染，从而优化组件的性能。
+
+③ componentWillUpdate -- render 调用前执行，可以作为组件更新发生前执行 某些工作的地方，一般也很少用到。
+
+④ render -- 返回 react 元素。shouldComponentUpdate、componentWillUpdate(nextProps, nextState)，不能调用 setState，否则组件死循环，永远无法渲染。
+
+⑤ componentDidUpdate -- 组件更新后调用，可操作 DOM。componentDidUpdate(prevProps, prevState)。
+
+Ⅲ . 卸载阶段
+
+componentWillUnmount，执行一些清楚工作，比如清楚定时器，清除手动创建的 DOM。
