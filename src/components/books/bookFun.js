@@ -7,6 +7,7 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import './book.css'
 function BookFun(props) {
   const {
     book: { title, authors, version, bookId, dislike, like, price = 39 },
@@ -14,13 +15,16 @@ function BookFun(props) {
   const handleLike = () => {
     props.onLike(bookId)
   }
+  const authorsStyle = {
+    backgroundColor: 'gray'
+  }
   const Book = (
     <li>
       <h2>{title}</h2>
-      <p>作者：{authors.join('、')}</p>
+      <p style={authorsStyle}>作者：{authors.join('、')}</p>
       <p>版本：{version}</p>
       <p>价格：{price}￥</p>
-      <button onClick={handleLike}>喜欢</button>
+      <button onClick={handleLike} className="like">喜欢</button>
       &nbsp;&nbsp;
       <span>{like}</span>
       <br />
@@ -29,6 +33,7 @@ function BookFun(props) {
           console.log(event) //使用箭头函数绑定事件处理器
           props.onDislike(bookId)
         }}
+        className="dislike"
       >
         不喜欢
       </button>

@@ -466,3 +466,17 @@ BookFun.propTypes = {
 // todo 如何该props的内层属性设置默认值 属性默认值
 // BookFun.defaultProps = { book.price: 39 }
 ```
+6. 组件的样式
+  给组件添加样式的方式有两种：外部样式和内联样式
+
+  1. 外部样式引入的两种方式
+  在使用组件的 html 也页面中引入：
+  ```html
+  <link rel="stylesheet" type="text/css" href="style.css">
+  ```
+  样式表文件作用于整个应用的所 有组件(一般是基础样式表)。
+  把组件当成一个模块引入组件，样式 表作用于某个组件。在应用入口引入的样式也会作用于整个应用。
+  解决 calss 冲突————使用 CSS Modules。
+  2. 内联样式
+  将样式属性写成 JS 对象，使用 style 属性引入。
+  **具有中划线的样式属性，要采用小驼峰名名。**
