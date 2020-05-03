@@ -2,7 +2,7 @@
  * @Description: 函数组件
  * @Date: 2020-04-19 19:04:00
  * @Author: JackChouMine
- * @LastEditTime: 2020-04-20 01:21:21
+ * @LastEditTime: 2020-05-03 22:44:20
  * @LastEditors: JackChouMine
  */
 import React from 'react'
@@ -16,7 +16,7 @@ function BookFun(props) {
     props.onLike(bookId)
   }
   const authorsStyle = {
-    backgroundColor: 'gray'
+    backgroundColor: 'gray',
   }
   const Book = (
     <li>
@@ -24,13 +24,15 @@ function BookFun(props) {
       <p style={authorsStyle}>作者：{authors.join('、')}</p>
       <p>版本：{version}</p>
       <p>价格：{price}￥</p>
-      <button onClick={handleLike} className="like">喜欢</button>
+      <button onClick={handleLike} className="like">
+        喜欢
+      </button>
       &nbsp;&nbsp;
       <span>{like}</span>
       <br />
       <button
         onClick={(event) => {
-          console.log(event) //使用箭头函数绑定事件处理器
+          // console.log(event) //使用箭头函数绑定事件处理器
           props.onDislike(bookId)
         }}
         className="dislike"

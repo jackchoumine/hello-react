@@ -2,7 +2,7 @@
  * @Description: react 基础
  * @Date: 2020-04-19 15:51:27
  * @Author: JackChouMine
- * @LastEditTime: 2020-04-20 01:22:37
+ * @LastEditTime: 2020-05-03 23:49:46
  * @LastEditors: JackChouMine
  -->
 
@@ -539,3 +539,10 @@ componentWillUnmount，执行一些清楚工作，比如清楚定时器，清除
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
 <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+10. 表单
+
+表单元素的值是由 React 来管理的，那么它就是一个受控组件，否则就是非受控组件。React 组件渲染表单元素，并在用户和表单元素发生交互时控制表单元素的行为，从而保证组件的 state 成为界面上所有元素状态的唯一来源。
+
+input 和 textarea 的非受控组件，state 的状态赋值给 value ,通过监听 change 事件，来改变 state。
+select 在 select 上设置 value 属性，checkbox 通过修改 checked 属性。
