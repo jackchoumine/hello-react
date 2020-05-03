@@ -2,7 +2,7 @@
  * @Description: 登录表单→受控组件
  * @Date: 2020-05-03 22:18:31
  * @Author: JackChouMine
- * @LastEditTime: 2020-05-03 23:46:08
+ * @LastEditTime: 2020-05-04 00:00:55
  * @LastEditors: JackChouMine
  */
 import React, { Component } from 'react'
@@ -50,6 +50,7 @@ class LoginForm extends Component {
   }
   handleSubmit(event) {
     event.preventDefault()
+    console.log('非受控组件', this.nameInput.value)
     console.log(this.state)
   }
   render() {
@@ -60,8 +61,8 @@ class LoginForm extends Component {
           <input
             type="text"
             name="name"
-            value={this.state.name}
-            onChange={this.handleChange}
+            defaultValue="hello"
+            ref={(nameInput) => (this.nameInput = nameInput)}
           />
         </label>
         <br />

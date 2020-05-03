@@ -2,7 +2,7 @@
  * @Description: react 基础
  * @Date: 2020-04-19 15:51:27
  * @Author: JackChouMine
- * @LastEditTime: 2020-05-03 23:49:46
+ * @LastEditTime: 2020-05-04 00:07:19
  * @LastEditors: JackChouMine
  -->
 
@@ -546,3 +546,19 @@ componentWillUnmount，执行一些清楚工作，比如清楚定时器，清除
 
 input 和 textarea 的非受控组件，state 的状态赋值给 value ,通过监听 change 事件，来改变 state。
 select 在 select 上设置 value 属性，checkbox 通过修改 checked 属性。
+
+非受控组件指表单元素的状态依然由表单元 素自己管理，而不是交给 React 组件管理。属性 ref，用 来引用 React 组件或 DOM 元素的实例来获取表单上的值。
+ref 的值是一个函数，这个函数会接收当前元素作为参数。
+`this.nameInput` 是当前元素，不必提前声明。使用 `this.nameInput.value` 获取表单值，默认值使用 defaultValue 属性设置。
+select 元素和 textarea 元素也支持通过 defaultValue 设置默认值，<input type="checkbox">和<input type="radio"> 则支持通过 defaultChecked 属性设置默认值。
+
+```js
+<input
+  type="text"
+  name="name"
+  defaultValue="hello"
+  ref={(nameInput) => (this.nameInput = nameInput)}
+/>
+```
+
+非受控组件需要为表单组件定义事件，表单字段多了会比较繁琐，而受控组件，简化了表单操作，但是破坏了 react 状态管理的一致性，不易排查错误，推荐使用非受控组件。
