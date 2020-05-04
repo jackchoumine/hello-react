@@ -2,7 +2,7 @@
  * @Description: react 基础
  * @Date: 2020-04-19 15:51:27
  * @Author: JackChouMine
- * @LastEditTime: 2020-05-05 03:26:24
+ * @LastEditTime: 2020-05-05 03:51:23
  * @LastEditors: JackChouMine
  -->
 
@@ -606,3 +606,32 @@ componentWillReceivePorps(nexrProps){
 ```
 
 ⑤ 事件处理函数。
+
+13. 组件通信
+
+① 父子组件通信：props，父组件通过 props 向子组件传递数据，子组件调用通过 props 传递到子组件的函数修改父组件中的数据；
+
+② 兄弟组件：将共有的状态提升到共同的父组件中，同时 props 实现其中一个组件修改状态，也会反映到另一个组件中；缺点：层级深了，状态提升会很繁琐。
+
+③ context：context 上下文，让任意层级的子组件都可以获取父组件中的状态和方法。在提供 context 的组件内新增一个 getChildContext 方法，返回 context 对象，然后在组件的 childContextTypes 属性上定义 context 对象的属性的类型信息。通过`this.context.key` 在子组件中获取父组件中的状态和方法。
+
+当 context 中包含数据时，如果要修改 context 中的数 据，一定不能直接修改，而是要通过 setState 修改，组件 state 的变化会创 建一个新的 context，然后重新传递给子组件。
+
+```js
+getChildContext() {
+  return { onAddUser: this.handleAddUser } // 通过 context 传递一个函数
+}
+UserListContainer.childContextTypes = {
+  onAddUser: PropTypes.func
+}
+```
+
+在子组件中使用 context ：
+
+```js
+this.context.onAddUser(this.state.newUser)
+```
+
+④ 消息队列（事件队列）：改变数据的组件发起一个消息，使用数据的组件监 听这个消息，并在响应函数中触发 setState 来改变组件状态。
+
+⑤ 状态管理库。
