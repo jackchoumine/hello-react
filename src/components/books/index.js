@@ -2,7 +2,7 @@
  * @Description: 书组件
  * @Date: 2020-04-19 17:05:20
  * @Author: JackChouMine
- * @LastEditTime: 2020-04-20 01:23:10
+ * @LastEditTime: 2020-05-05 04:36:48
  * @LastEditors: JackChouMine
  */
 import React, { Component } from 'react'
@@ -74,7 +74,7 @@ class Books extends Component {
   }
   render() {
     const Books = (
-      <ol>
+      <ol ref={this.props.listRef}>
         {this.state.books.map((book) => (
           <Book
             key={book.bookId}

@@ -2,7 +2,7 @@
  * @Description: 登录表单→受控组件
  * @Date: 2020-05-03 22:18:31
  * @Author: JackChouMine
- * @LastEditTime: 2020-05-04 00:00:55
+ * @LastEditTime: 2020-05-05 04:09:35
  * @LastEditors: JackChouMine
  */
 import React, { Component } from 'react'
@@ -33,6 +33,15 @@ class LoginForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleCheckbox = this.handleCheckbox.bind(this)
     this.cityList = ['成都', '北京', '上海']
+    this.blur = this.blur.bind(this)
+  }
+  componentDidMount() {
+    // 通过 ref 实现自动聚焦
+    this.nameInput.focus()
+  }
+  blur() {
+    // 通过 ref 实现失焦
+    this.nameInput.blur()
   }
   handleChange(event) {
     const target = event.target
