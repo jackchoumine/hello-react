@@ -2,7 +2,7 @@
  * @Description: react 基础
  * @Date: 2020-04-19 15:51:27
  * @Author: JackChouMine
- * @LastEditTime: 2020-05-04 00:07:19
+ * @LastEditTime: 2020-05-05 03:26:24
  * @LastEditors: JackChouMine
  -->
 
@@ -562,3 +562,47 @@ select 元素和 textarea 元素也支持通过 defaultValue 设置默认值，<
 ```
 
 非受控组件需要为表单组件定义事件，表单字段多了会比较繁琐，而受控组件，简化了表单操作，但是破坏了 react 状态管理的一致性，不易排查错误，推荐使用非受控组件。
+
+11. 组件的 state
+
+11.1 如何确定最小的 state 集合？
+
+组件的 state 中的所有状态都用于反映组件的 UI 变化，不该有多余状态，也不该存在通过其他状态计算出来的中间状态。状态可分为两类数据：是否展示和展示什么，即决定是否展示和展示哪些的数据。
+除 props 、 state 以外的上属性，叫普通属性，props 对于使用它的组件来 说是只读的，是通过父组件传递过来的，要想修改 props，只能在父组 件中修改;而 state 是组件内部自己维护的状态，是可变的。组件中需要用到一个变量，并且它和渲染无关时（不会在 render 中用到)，就该定义为普通属性。
+以下情况不是一个状态：
+① porps ；
+② 整个生命周期保持不变的变量；
+③ 通过状态 state 或者属性 props 计算得到；
+④ 没有在 render 中使用。
+
+11.2 如何修改 state ?
+
+① setSate 是修改状态的唯一方式；
+
+② 更新是异步的，出于性能 原因，可能会将多次 setState 的状态修改合并成一次状态修改。比如每次点击按钮，增加一个商品到购物车，执行`this.setState({quantity: this.state.quantity + 1})`,点击两次，react 会处理成 `Object.assign(previousState,{quantity: this.state.quantity + 1}, {quantity: this.state.quantity + 1})`，商品数量只增加一个。当后一个状态依赖前一个状态时，应该给 setState 传入参数，`this.setState((preSate,preProps) => ({counter: preState.quantity + 1}))`；
+
+③ state 的更新是一个合并的过程，只需要传入改变的 state；
+
+④ state 的所有状态都应该是不可变对象。 状态改变，应该重建状态对象，而不是直接修改原来的对象。对于简单数据类型（string，number，boolean，null，undefined），都是不可变对象，修改它们本事就是重置。
+数组类型的状态，使用 `concat` 和 `...` 新建一个数组，再充值状态。concat、 slice、filter 会返回一个新的数组，push、pop、shift、unshift、splice 等方法修改原数组。对象类型的状态，使用`Object.assign` 或者 `...` 修改它。
+
+使用不可变对象的原因：方便调试和提高性能，shouldComponentUpdate 方法中仅需要比较前后两次状态对象的引用就 可以判断状态是否真的改变，避免不必要的 render 方法调用。
+
+12. 组件和服务器通信
+
+可执行 AJAX 的地方：
+① constructor，可行，但是构造函数适合初始化工作，不适合有副作用的 AJAX 的请求，因为从服务器端获取数据后往往会修改状态。
+② componentWillMount，可行，挂载前发送请求，但是服务器端渲染会调用两次；
+③ componentDidMount，挂载后发送请求，DOM 操作安全，保证只调用一次；
+④ componentWillReceiveProps，当属性改变时，向服务器发送请求，类似 vue 在 watch 中发送请求。
+
+```js
+componentWillReceivePorps(nexrProps){
+  // 保证属性改变才请求
+  if(nextProps.id !== this.props.id) {
+    // do ajax
+  }
+}
+```
+
+⑤ 事件处理函数。
