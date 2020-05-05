@@ -2,15 +2,20 @@
  * @Description: app 组件
  * @Date: 2020-04-19 15:27:52
  * @Author: JackChouMine
- * @LastEditTime: 2020-05-05 21:41:51
+ * @LastEditTime: 2020-05-06 00:06:02
  * @LastEditors: JackChouMine
  */
 import React, { Component } from 'react'
 import logo from './logo.svg'
-import { LoginForm, ListBook, Books } from './components'
+import { LoginForm, ListBook, Books, WithPersistentData } from './components'
 import './App.css'
-
+const HocListBook = WithPersistentData(ListBook)
+const HocLoginForm = WithPersistentData(LoginForm)
 class App extends Component {
+  constructor(props) {
+    super(props)
+    localStorage.setItem('name', 'jackchoumine')
+  }
   loginFormBlur = () => {
     //调用组件的方法
     this.loginForm.blur()
@@ -24,15 +29,11 @@ class App extends Component {
       <div>
         <h2>16版本的新特性</h2>
         <ul>
-          <ListBook />
+          <HocListBook />
         </ul>
         <div>
-          <LoginForm
-            ref={(loginForm) => {
-              this.loginForm = loginForm
-            }}
-          />
-          <button onClick={this.loginFormBlur}>表单失焦</button>
+          <HocLoginForm />
+          {/* <button onClick={this.loginFormBlur}>表单失焦</button> */}
         </div>
         <Books
           listRef={(el) => {

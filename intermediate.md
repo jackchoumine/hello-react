@@ -2,7 +2,7 @@
  * @Description: react 进阶知识
  * @Date: 2020-05-05 04:46:28
  * @Author: JackChouMine
- * @LastEditTime: 2020-05-05 23:07:56
+ * @LastEditTime: 2020-05-06 00:07:56
  * @LastEditors: JackChouMine
  -->
 
@@ -100,3 +100,58 @@ react 比较两棵树都从根节点比较，根据根节点类型不同，执�
 ① react developer tool for chrome
 ② chrome 性能面板
 ③ why-did-you-update npm 包
+
+3. 高阶组件
+
+JS 中参数为函数返回值也是函数的函数叫高阶函数。类似的，高阶组件接受组件为参数，返回新的组件，本质是一个函数，高阶组件抽象、封装和分离组件的通用逻辑，可实现逻辑复用。
+
+现在在 App 组件中设置一个本地数据：
+
+```js
+  constructor(props) {
+    super(props)
+    localStorage.setItem('name', 'jackchou')
+  }
+```
+
+然后在两个组件中获取本地数据，然后渲染在组件中：
+
+```js
+  componentWillMount() {
+    const name = localStorage.getItem('name')
+    this.setState({ name })
+  }
+
+   <input
+            type="text"
+            name="name"
+            defaultValue={this.state.name}
+            ref={(nameInput) => (this.nameInput = nameInput)}
+          />
+```
+
+如何很多组件都用到了 name，那不得不在每个组件都获取一次 name，代码复用性不高。可使用高阶组件实现获取本地数据这一逻辑：
+
+```js
+import React, { Component } from 'react'
+function withPersistentData(WrappedComponent) {
+  return class extends Component {
+    componentWillMount() {
+      const name = localStorage.getItem('name')
+      this.setState({ name })
+    }
+    render() {
+      return <WrappedComponent name={this.state.name}></WrappedComponent>
+    }
+  }
+}
+
+export default withPersistentData
+```
+
+使用：
+
+```js
+const HocListBook = WithPersistentData(ListBook)
+<HocListBook /> // 在 render 函数中
+```
