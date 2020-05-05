@@ -2,7 +2,7 @@
  * @Description: 登录表单→受控组件
  * @Date: 2020-05-03 22:18:31
  * @Author: JackChouMine
- * @LastEditTime: 2020-05-05 04:09:35
+ * @LastEditTime: 2020-05-05 23:20:45
  * @LastEditors: JackChouMine
  */
 import React, { Component } from 'react'
@@ -34,6 +34,10 @@ class LoginForm extends Component {
     this.handleCheckbox = this.handleCheckbox.bind(this)
     this.cityList = ['成都', '北京', '上海']
     this.blur = this.blur.bind(this)
+  }
+  componentWillMount() {
+    const name = localStorage.getItem('name')
+    this.setState({ name })
   }
   componentDidMount() {
     // 通过 ref 实现自动聚焦
@@ -70,7 +74,7 @@ class LoginForm extends Component {
           <input
             type="text"
             name="name"
-            defaultValue="hello"
+            defaultValue={this.state.name}
             ref={(nameInput) => (this.nameInput = nameInput)}
           />
         </label>
