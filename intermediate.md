@@ -2,7 +2,7 @@
  * @Description: react 进阶知识
  * @Date: 2020-05-05 04:46:28
  * @Author: JackChouMine
- * @LastEditTime: 2020-05-05 05:01:30
+ * @LastEditTime: 2020-05-05 23:07:56
  * @LastEditors: JackChouMine
  -->
 
@@ -70,3 +70,33 @@ Books
 ```js
 <ol ref={this.props.listRef}></ol>
 ```
+
+2. 虚拟 DOM 以及性能优化
+
+DOM 是 HTML 文本结构的抽象，JS 直接对 DOM 进行操作，会引起页面重新布局和重新渲染，很耗时。前端优化的一条原则：尽量减少 DOM 操作。软件开发领域，遇到的问题，都可通过增加一层抽象层家以解决或改善。为了解决操作 DOM 效率底下的问题，react 引入虚拟 DOM,建立在真是 DOM 纸上，对应真实 DOM。虚拟 DOM 并非是 react 独有的技术，而是一个独立的技术。
+虚拟 DOM 和 react 元素是使用一个 JS 对象来描述它们的结构，访问 JS 对象比访问真是 DOM 快速得多。
+
+diff 算法：
+react 通过比较虚拟 DOM 结构的变化，找出差异部分，更新到真是 DOM 上去，从而减少 DOM 操作。两种比较方式：
+① 元素类型不同，生成不同的树；
+② 列表元素中的 key 属性进行比较。
+
+react 比较两棵树都从根节点比较，根据根节点类型不同，执行不同的操作。
+
+根节点类型不同：
+根节点类型不同，react 认为是完全不同的树，不必再比较上属性和子节点，把整棵树销毁后重建。
+销毁会执行 `componentWillUnmount`，重建会执行初始化、挂载等生命周期函数。这种情况需要大量 DOM，效率低下。
+
+更节点类型相同，比较属性，更新变化的属性。
+
+根节点相同的组件，执行更新操作，变化会同步到虚拟 DOM 上。执行 `componentWillReceiveProps` 和 `componentWillUpdate`
+
+性能优化的方式：
+① 使用生产环境的版本的库。
+② 避免不必要的组件渲染。`shouldComponentUpdate` 决定是否需要重新渲染。继承 `PureComponent` 组件。
+③ 使用 key。
+
+性能检查工具：
+① react developer tool for chrome
+② chrome 性能面板
+③ why-did-you-update npm 包
