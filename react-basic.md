@@ -2,8 +2,8 @@
  * @Description: react 基础
  * @Date: 2020-04-19 15:51:27
  * @Author: JackChouMine
- * @LastEditTime: 2020-05-05 23:32:14
- * @LastEditors: JackChouMine
+ * @LastEditTime: 2021-01-03 03:44:31 +0800
+ * @LastEditors: JackChou
  -->
 
 # react 基础
@@ -26,9 +26,9 @@ react 将 UI 分成一个个组件，组件具备描述 UI 和数据的完成功
 
 ```jsx
 const element = (
-  <div>
-    <h1>hello react</h1>
-  </div>
+	<div>
+		<h1>hello react</h1>
+	</div>
 )
 ```
 
@@ -51,29 +51,29 @@ const element = <MyComponent foo={1 + 2} /> // 没有子节点，可自闭合
 ```jsx
 const todos = ['up', 'eat', 'school']
 const todoList = (
-  <ul>
-    {todos.map((todo) => (
-      <li>{todo}</li> // 这里定义了 li 组件
-    ))}
-  </ul>
+	<ul>
+		{todos.map((todo) => (
+			<li>{todo}</li> // 这里定义了 li 组件
+		))}
+	</ul>
 )
 ```
 
 3. 标签属性
 
 dom 类型的标签，大部分属性和 html 一致，部分属性改变：
-classs 变为 className，因为 class 是 ES6 保留字，
+class 变为 className，因为 class 是 ES6 保留字，
 onclick 变成 onClick,react 对事件进行了封装，采用小托峰式名字事件。
 
 ```jsx
 const element = (
-  <div
-    id="content"
-    className="foo"
-    onClick={() => {
-      console.log('Hello,React')
-    }}
-  />
+	<div
+		id='content'
+		className='foo'
+		onClick={() => {
+			console.log('Hello,React')
+		}}
+	/>
 )
 ```
 
@@ -85,11 +85,11 @@ const element = (
 
 ```jsx
 const element = (
-  <div>
-    {/*这里是一个注释*/}
-    {/*不可以使用单行注释*/}
-    <span>React</span>
-  </div>
+	<div>
+		{/*这里是一个注释*/}
+		{/*不可以使用单行注释*/}
+		<span>React</span>
+	</div>
 )
 ```
 
@@ -117,17 +117,17 @@ react 将 UI 分成独立可复用的组件.
  */
 import React, { Component } from 'react'
 class BookComponent extends Component {
-  render() {
-    const bookList = ['react入门', 'react进阶', 'react专家之路']
-    const Books = (
-      <ol>
-        {bookList.map((book) => (
-          <li>{book}</li>
-        ))}
-      </ol>
-    )
-    return Books
-  }
+	render() {
+		const bookList = ['react入门', 'react进阶', 'react专家之路']
+		const Books = (
+			<ol>
+				{bookList.map((book) => (
+					<li>{book}</li>
+				))}
+			</ol>
+		)
+		return Books
+	}
 }
 export default BookComponent
 ```
@@ -138,17 +138,17 @@ export default BookComponent
 ```js
 import React, { Component } from 'react'
 class BookComponent extends Component {
-  render() {
-    const { title, author, version } = this.props //所有传递进来的属性会组成一个简单的对象
-    const Book = (
-      <li>
-        <h2>{title}</h2>
-        <p>作者：{author}</p>
-        <p>版本：{version}</p>
-      </li>
-    )
-    return Book
-  }
+	render() {
+		const { title, author, version } = this.props //所有传递进来的属性会组成一个简单的对象
+		const Book = (
+			<li>
+				<h2>{title}</h2>
+				<p>作者：{author}</p>
+				<p>版本：{version}</p>
+			</li>
+		)
+		return Book
+	}
 }
 export default BookComponent
 ```
@@ -159,27 +159,23 @@ export default BookComponent
 import React, { Component } from 'react'
 import Book from './book' // 引入图书组件
 class BookComponent extends Component {
-  render() {
-    const bookList = [
-      { title: 'react入门', author: '小马', version: '第二版' },
-      { title: 'react进阶', author: '小明', version: '第三版' },
-      { title: 'react专家之路', author: '小华', version: '第一版' },
-    ]
-    const Books = (
-      <ol>
-        {/*<Book {...book} /> 还可以这样传递 推荐分分开传递，传递的属性会更加清晰，不会传递多余的属性*/}
-        {/* 所有属性会组成一个对象传递给 props */}
-        {bookList.map((book) => (
-          <Book
-            title={book.title}
-            author={book.author}
-            version={book.version}
-          />
-        ))}
-      </ol>
-    )
-    return Books
-  }
+	render() {
+		const bookList = [
+			{ title: 'react入门', author: '小马', version: '第二版' },
+			{ title: 'react进阶', author: '小明', version: '第三版' },
+			{ title: 'react专家之路', author: '小华', version: '第一版' },
+		]
+		const Books = (
+			<ol>
+				{/*<Book {...book} /> 还可以这样传递 推荐分分开传递，传递的属性会更加清晰，不会传递多余的属性*/}
+				{/* 所有属性会组成一个对象传递给 props */}
+				{bookList.map((book) => (
+					<Book title={book.title} author={book.author} version={book.version} />
+				))}
+			</ol>
+		)
+		return Books
+	}
 }
 export default BookComponent
 ```
@@ -192,61 +188,61 @@ state 是组件的内部状态，state 的变化会反映到组件上。在构�
 
 ```js
 class BookComponent extends Component {
-  constructor(props) {
-    // 构造函数介绍传递进来的属性
-    super(props)
-    this.state = {
-      // 定义内部状态
-      like: 0,
-      dislike: 0,
-    }
-  }
-  vote() {
-    let { like } = this.state
-    // this.state = {
-    //   // 不能直接改变 state
-    //   vote: vote,
-    // }
-    this.setState({
-      like: ++like,
-    })
-  }
-  hate() {
-    let { dislike } = this.state
-    this.setState({
-      dislike: ++dislike,
-    })
-  }
-  render() {
-    const { title, author, version } = this.props // 所有传递进来的属性会组成一个简单的对象
-    const Book = (
-      <li>
-        <h2>{title}</h2>
-        <p>作者：{author}</p>
-        <p>版本：{version}</p>
-        <button
-          onClick={() => {
-            this.vote()
-          }}
-        >
-          喜欢
-        </button>
-        &nbsp;&nbsp;
-        <span>{this.state.like}</span>
-        <br />
-        <button
-          onClick={() => {
-            this.hate()
-          }}
-        >
-          不喜欢
-        </button>
-        &nbsp;&nbsp;
-        <span>{this.state.dislike}</span>
-      </li>
-    )
-    return Book
-  }
+	constructor(props) {
+		// 构造函数介绍传递进来的属性
+		super(props)
+		this.state = {
+			// 定义内部状态
+			like: 0,
+			dislike: 0,
+		}
+	}
+	vote() {
+		let { like } = this.state
+		// this.state = {
+		//   // 不能直接改变 state
+		//   vote: vote,
+		// }
+		this.setState({
+			like: ++like,
+		})
+	}
+	hate() {
+		let { dislike } = this.state
+		this.setState({
+			dislike: ++dislike,
+		})
+	}
+	render() {
+		const { title, author, version } = this.props // 所有传递进来的属性会组成一个简单的对象
+		const Book = (
+			<li>
+				<h2>{title}</h2>
+				<p>作者：{author}</p>
+				<p>版本：{version}</p>
+				<button
+					onClick={() => {
+						this.vote()
+					}}
+				>
+					喜欢
+				</button>
+				&nbsp;&nbsp;
+				<span>{this.state.like}</span>
+				<br />
+				<button
+					onClick={() => {
+						this.hate()
+					}}
+				>
+					不喜欢
+				</button>
+				&nbsp;&nbsp;
+				<span>{this.state.dislike}</span>
+			</li>
+		)
+		return Book
+	}
 }
 export default BookComponent
 ```
@@ -283,7 +279,7 @@ Book 组件维持 like 和 dislike 状态，这些属性作为书籍的属性传
 
 ```js
 function Welcome(props) {
-  return <h1>hello,{props.name}</h1>
+	return <h1>hello,{props.name}</h1>
 }
 ```
 
@@ -299,34 +295,34 @@ function Welcome(props) {
  */
 import React from 'react'
 function BookFun(props) {
-  const {
-    book: { title, author, version, bookId, dislike, like },
-  } = props // 所有传递进来的属性会组成一个简单的对象
-  const handleLike = () => {
-    props.onLike(bookId)
-  }
-  const Book = (
-    <li>
-      <h2>{title}</h2>
-      <p>作者：{author}</p>
-      <p>版本：{version}</p>
-      <button onClick={handleLike}>喜欢</button>
-      &nbsp;&nbsp;
-      <span>{like}</span>
-      <br />
-      <button
-        onClick={(event) => {
-          console.log(event) //使用箭头函数绑定事件处理器
-          props.onDislike(bookId)
-        }}
-      >
-        不喜欢
-      </button>
-      &nbsp;&nbsp;
-      <span>{dislike}</span>
-    </li>
-  )
-  return Book
+	const {
+		book: { title, author, version, bookId, dislike, like },
+	} = props // 所有传递进来的属性会组成一个简单的对象
+	const handleLike = () => {
+		props.onLike(bookId)
+	}
+	const Book = (
+		<li>
+			<h2>{title}</h2>
+			<p>作者：{author}</p>
+			<p>版本：{version}</p>
+			<button onClick={handleLike}>喜欢</button>
+			&nbsp;&nbsp;
+			<span>{like}</span>
+			<br />
+			<button
+				onClick={(event) => {
+					console.log(event) //使用箭头函数绑定事件处理器
+					props.onDislike(bookId)
+				}}
+			>
+				不喜欢
+			</button>
+			&nbsp;&nbsp;
+			<span>{dislike}</span>
+		</li>
+	)
+	return Book
 }
 export default BookFun
 ```
@@ -342,86 +338,86 @@ export default BookFun
 import React, { Component } from 'react'
 import Book from './bookFun'
 class Books extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      books: [],
-    }
-    this.timer = ''
-    this.handleLike = this.handleLike.bind(this) // es6 的 class，需要手动绑定 this
-    // this.handleDislike = this.handleDislike.bind(this)
-  }
-  // 在组件挂载后的模拟服务器返回数据
-  componentDidMount() {
-    this.timer = setTimeout(() => {
-      // 使用 setSate 改变状态,会引发重新渲染
-      this.setState({
-        books: [
-          {
-            title: 'react入门',
-            author: '小马',
-            version: '第二版',
-            like: 0,
-            dislike: 0,
-            bookId: (Math.random() + 1).toString(36).substring(2), // 随机字符串
-          },
-          {
-            title: 'react进阶',
-            author: '小明',
-            version: '第三版',
-            like: 0,
-            dislike: 0,
-            bookId: (Math.random() + 1).toString(36).substring(2),
-          },
-          {
-            title: 'react专家之路',
-            author: '小华',
-            version: '第一版',
-            like: 0,
-            dislike: 0,
-            bookId: (Math.random() + 1).toString(36).substring(2),
-          },
-        ],
-      })
-    }, 100)
-  }
-  componentWillUnmount() {
-    if (this.timer) clearTimeout(this.timer)
-  }
-  handleDislike(id) {
-    const books = this.state.books.map((book) => {
-      return book.bookId === id ? { ...book, dislike: ++book.dislike } : book
-    })
-    this.setState({
-      books,
-    })
-  }
-  handleLike(id) {
-    const books = this.state.books.map((book) => {
-      return book.bookId === id ? { ...book, like: ++book.like } : book
-    })
-    this.setState({
-      books,
-    })
-  }
-  render() {
-    const Books = (
-      <ol>
-        {this.state.books.map((book) => (
-          <Book
-            key={book.bookId}
-            book={book} // 书籍信息保存在 book 属性你
-            onLike={this.handleLike}
-            onDislike={(id) => {
-              // 自定义事件，使用箭头函数绑定事件处理器
-              this.handleDislike(id)
-            }}
-          />
-        ))}
-      </ol>
-    )
-    return Books
-  }
+	constructor(props) {
+		super(props)
+		this.state = {
+			books: [],
+		}
+		this.timer = ''
+		this.handleLike = this.handleLike.bind(this) // es6 的 class，需要手动绑定 this
+		// this.handleDislike = this.handleDislike.bind(this)
+	}
+	// 在组件挂载后的模拟服务器返回数据
+	componentDidMount() {
+		this.timer = setTimeout(() => {
+			// 使用 setSate 改变状态,会引发重新渲染
+			this.setState({
+				books: [
+					{
+						title: 'react入门',
+						author: '小马',
+						version: '第二版',
+						like: 0,
+						dislike: 0,
+						bookId: (Math.random() + 1).toString(36).substring(2), // 随机字符串
+					},
+					{
+						title: 'react进阶',
+						author: '小明',
+						version: '第三版',
+						like: 0,
+						dislike: 0,
+						bookId: (Math.random() + 1).toString(36).substring(2),
+					},
+					{
+						title: 'react专家之路',
+						author: '小华',
+						version: '第一版',
+						like: 0,
+						dislike: 0,
+						bookId: (Math.random() + 1).toString(36).substring(2),
+					},
+				],
+			})
+		}, 100)
+	}
+	componentWillUnmount() {
+		if (this.timer) clearTimeout(this.timer)
+	}
+	handleDislike(id) {
+		const books = this.state.books.map((book) => {
+			return book.bookId === id ? { ...book, dislike: ++book.dislike } : book
+		})
+		this.setState({
+			books,
+		})
+	}
+	handleLike(id) {
+		const books = this.state.books.map((book) => {
+			return book.bookId === id ? { ...book, like: ++book.like } : book
+		})
+		this.setState({
+			books,
+		})
+	}
+	render() {
+		const Books = (
+			<ol>
+				{this.state.books.map((book) => (
+					<Book
+						key={book.bookId}
+						book={book} // 书籍信息保存在 book 属性你
+						onLike={this.handleLike}
+						onDislike={(id) => {
+							// 自定义事件，使用箭头函数绑定事件处理器
+							this.handleDislike(id)
+						}}
+					/>
+				))}
+			</ol>
+		)
+		return Books
+	}
 }
 export default Books
 ```
@@ -454,16 +450,16 @@ propTypes 的 key 是 props 的属性，值从 PropTypes 中获取。
 // props 类型约束
 // todo 如何自定义检查函数
 BookFun.propTypes = {
-  book: PropTypes.shape({
-    title: PropTypes.string,
-    authors: PropTypes.arrayOf(PropTypes.string).isRequired,
-    version: PropTypes.string,
-    price: PropTypes.number,
-    like: PropTypes.number,
-    disLike: PropTypes.number,
-  }).isRequired,
-  onLike: PropTypes.func.isRequired,
-  onDislike: PropTypes.func.isRequired,
+	book: PropTypes.shape({
+		title: PropTypes.string,
+		authors: PropTypes.arrayOf(PropTypes.string).isRequired,
+		version: PropTypes.string,
+		price: PropTypes.number,
+		like: PropTypes.number,
+		disLike: PropTypes.number,
+	}).isRequired,
+	onLike: PropTypes.func.isRequired,
+	onDislike: PropTypes.func.isRequired,
 }
 // todo 如何该props的内层属性设置默认值 属性默认值
 // BookFun.defaultProps = { book.price: 39 }
@@ -481,7 +477,7 @@ BookFun.propTypes = {
 
 样式表文件作用于整个应用的所 有组件(一般是基础样式表)。
 把组件当成一个模块引入组件，样式 表作用于某个组件。在应用入口引入的样式也会作用于整个应用。
-解决 calss 冲突————使用 CSS Modules。
+解决 class 冲突————使用 CSS Modules。
 
 ②. 内联样式
 将样式属性写成 JS 对象，使用 style 属性引入。
@@ -555,12 +551,7 @@ ref 的值是一个函数，这个函数会接收当前元素作为参数。
 select 元素和 textarea 元素也支持通过 defaultValue 设置默认值，<input type="checkbox">和<input type="radio"> 则支持通过 defaultChecked 属性设置默认值。
 
 ```js
-<input
-  type="text"
-  name="name"
-  defaultValue="hello"
-  ref={(nameInput) => (this.nameInput = nameInput)}
-/>
+<input type='text' name='name' defaultValue='hello' ref={(nameInput) => (this.nameInput = nameInput)} />
 ```
 
 非受控组件需要为表单组件定义事件，表单字段多了会比较繁琐，而受控组件，简化了表单操作，但是破坏了 react 状态管理的一致性，不易排查错误，推荐使用非受控组件。
@@ -572,7 +563,7 @@ select 元素和 textarea 元素也支持通过 defaultValue 设置默认值，<
 组件的 state 中的所有状态都用于反映组件的 UI 变化，不该有多余状态，也不该存在通过其他状态计算出来的中间状态。状态可分为两类数据：是否展示和展示什么，即决定是否展示和展示哪些的数据。
 除 props 、 state 以外的上属性，叫普通属性，props 对于使用它的组件来 说是只读的，是通过父组件传递过来的，要想修改 props，只能在父组 件中修改;而 state 是组件内部自己维护的状态，是可变的。组件中需要用到一个变量，并且它和渲染无关时（不会在 render 中用到)，就该定义为普通属性。
 以下情况不是一个状态：
-① porps ；
+① props ；
 ② 整个生命周期保持不变的变量；
 ③ 通过状态 state 或者属性 props 计算得到；
 ④ 没有在 render 中使用。
@@ -634,6 +625,6 @@ UserListContainer.childContextTypes = {
 this.context.onAddUser(this.state.newUser)
 ```
 
-④ 消息队列（事件队列）：改变数据的组件发起一个消息，使用数据的组件监 听这个消息，并在响应函数中触发 setState 来改变组件状态。
+④ 消息队列（事件队列）：改变数据的组件发起一个消息，使用数据的组件监听这个消息，并在响应函数中触发 setState 来改变组件状态。
 
 ⑤ 状态管理库。
