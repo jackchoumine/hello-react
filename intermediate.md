@@ -1,17 +1,11 @@
-<!--
- * @Description: react 进阶知识
- * @Date: 2020-05-05 04:46:28
- * @Author: JackChouMine
- * @LastEditTime: 2020-05-06 00:07:56
- * @LastEditors: JackChouMine
- -->
+# react 进阶
 
 1. ref
 
 ref 可获取任意 DOM 或者组件，和 vue 中 ref 类似的。在一些场景下，ref 的使用可以带来便利， 例如控制元素的焦点、文本的选择或者和第三方操作 DOM 的库集成。
 
 ① DOM 上使用 ref。
-ref 接收一个回调函数作为值，在组件被挂载或卸载时，回调函数会被调用。被挂载时，回调函数会接收当前 DOM 元素作为参数;在组件被卸载时，回调 函数会接收 null 作为参数。
+ref 接收一个回调函数作为值，在组件被挂载或卸载时，回调函数会被调用。被挂载时，回调函数会接收当前 DOM 元素作为参数；在组件被卸载时，回调 函数会接收 null 作为参数。
 
 ```js
   componentDidMount() {
@@ -42,7 +36,7 @@ loginFormBlur = () => {
 }
 ;<div>
   <LoginForm
-    ref={(loginForm) => {
+    ref={loginForm => {
       this.loginForm = loginForm
     }}
   />
@@ -59,7 +53,7 @@ showChildDOM = () => {
   console.log(this.booksDOM.nodeType)
 }
 ;<Books
-  listRef={(el) => {
+  listRef={el => {
     this.booksDOM = el
   }}
 />
@@ -108,26 +102,26 @@ JS 中参数为函数返回值也是函数的函数叫高阶函数。类似的�
 现在在 App 组件中设置一个本地数据：
 
 ```js
-  constructor(props) {
-    super(props)
-    localStorage.setItem('name', 'jackchou')
-  }
+constructor(props) {
+  super(props)
+  localStorage.setItem('name', 'jackchou')
+}
 ```
 
 然后在两个组件中获取本地数据，然后渲染在组件中：
 
 ```js
-  componentWillMount() {
-    const name = localStorage.getItem('name')
-    this.setState({ name })
-  }
+componentWillMount() {
+  const name = localStorage.getItem('name')
+  this.setState({ name })
+}
 
-   <input
-            type="text"
-            name="name"
-            defaultValue={this.state.name}
-            ref={(nameInput) => (this.nameInput = nameInput)}
-          />
+<input
+  type="text"
+  name="name"
+  defaultValue={this.state.name}
+  ref={(nameInput) => (this.nameInput = nameInput)}
+/>
 ```
 
 如何很多组件都用到了 name，那不得不在每个组件都获取一次 name，代码复用性不高。可使用高阶组件实现获取本地数据这一逻辑：
