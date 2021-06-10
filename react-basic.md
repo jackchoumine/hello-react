@@ -551,12 +551,16 @@ select 元素和 textarea 元素也支持通过 defaultValue 设置默认值，<
 11.1 如何确定最小的 state 集合？
 
 组件的 state 中的所有状态都用于反映组件的 UI 变化，不该有多余状态，也不该存在通过其他状态计算出来的中间状态。状态可分为两类数据：是否展示和展示什么，即决定是否展示和展示哪些的数据。
-除 props 、 state 以外的上属性，叫普通属性，props 对于使用它的组件来 说是只读的，是通过父组件传递过来的，要想修改 props，只能在父组 件中修改;而 state 是组件内部自己维护的状态，是可变的。组件中需要用到一个变量，并且它和渲染无关时（不会在 render 中用到)，就该定义为普通属性。
+除 props 、 state 以外的上属性，【props 和 state 是 react 预先定义好的属性】，叫普通属性，props 对于使用它的组件来 说是只读的，是通过父组件传递过来的，要想修改 props，只能在父组件中修改；而 state 是组件内部自己维护的状态，是可变的。组件中需要用到一个变量，并且它和渲染无关时（不会在 render 中用到)，就该定义为普通属性。
+
 以下情况不是一个状态：
-① props ；
-② 整个生命周期保持不变的变量；
-③ 通过状态 state 或者属性 props 计算得到；
-④ 没有在 render 中使用。
+① props
+
+② 整个生命周期保持不变的变量
+
+③ 通过状态 state 或者属性 props 计算得到
+
+④ 没有在 render 中使用
 
 11.2 如何修改 state ?
 
@@ -566,18 +570,24 @@ select 元素和 textarea 元素也支持通过 defaultValue 设置默认值，<
 
 ③ state 的更新是一个合并的过程，只需要传入改变的 state；
 
-④ state 的所有状态都应该是**不可变对象**。 状态改变，应该重建状态对象，而不是直接修改原来的对象。对于简单数据类型（string，number，boolean，null，undefined），都是不可变对象，修改它们本事就是重置。
-数组类型的状态，使用 `concat` 和 `...` 新建一个数组，再充值状态。concat、 slice、filter 会返回一个新的数组，push、pop、shift、unshift、splice 等方法修改原数组。对象类型的状态，使用`Object.assign` 或者 `...` 修改它。
+④ state 的所有状态都应该是**不可变对象**。 状态改变，应该重建状态对象，而不是直接修改原来的对象。对于简单数据类型（string，number，boolean，null，undefined），都是不可变对象，修改它们本质就是重置。
+数组类型的状态，使用 `concat` 和 `...` 新建一个数组，再重置状态。concat、 slice、filter 会返回一个新的数组，push、pop、shift、unshift、splice 等方法修改原数组。对象类型的状态，使用`Object.assign` 或者 `...` 修改它。
 
-使用不可变对象的原因：方便调试和提高性能，shouldComponentUpdate 方法中仅需要比较前后两次状态对象的引用就 可以判断状态是否真的改变，避免不必要的 render 方法调用。
+> 创建新的状态对象的关键是， 避免使用会直接修改原对象的方法， 而是使用可以返回一个新对象的方法。
+
+使用不可变对象的原因：方便调试和提高性能，shouldComponentUpdate 方法中仅需要比较前后两次状态对象的引用就可以判断状态是否真的改变，避免不必要的 render 方法调用。
 
 12. 组件和服务器通信
 
 可执行 AJAX 的地方：
+
 ① constructor，可行，但是构造函数适合初始化工作，不适合有副作用的 AJAX 的请求，因为从服务器端获取数据后往往会修改状态。
+
 ② componentWillMount，可行，挂载前发送请求，但是服务器端渲染会调用两次；
+
 ③ componentDidMount，挂载后发送请求，DOM 操作安全，保证只调用一次；
-④ componentWillReceiveProps，当属性改变时，向服务器发送请求，类似 vue 在 watch 中发送请求。
+
+④ componentWillReceiveProps，当属性改变时，向服务器发送请求，类似 vue 在 watch 中发送请求;
 
 ```js
 componentWillReceiveProps(nextProps){
@@ -588,23 +598,25 @@ componentWillReceiveProps(nextProps){
 }
 ```
 
-⑤ 事件处理函数。
+⑤ 事件处理函数，比如点击按钮时再向服务器请求数据。
 
 13. 组件通信
 
-① 父子组件通信：props，父组件通过 props 向子组件传递数据，子组件调用通过 props 传递到子组件的函数修改父组件中的数据；
+① 父子组件通信：props 可传递函数。父组件通过 props 向子组件传递**普通数据**，子组件调用通过 props 传递到子组件的**函数**修改父组件中的数据；
 
 ② 兄弟组件：将共有的状态提升到共同的父组件中，同时 props 实现其中一个组件修改状态，也会反映到另一个组件中；缺点：层级深了，状态提升会很繁琐。
 
 ③ context：context 上下文，让任意层级的子组件都可以获取父组件中的状态和方法。在提供 context 的组件内新增一个 getChildContext 方法，返回 context 对象，然后在组件的 childContextTypes 属性上定义 context 对象的属性的类型信息。通过`this.context.key` 在子组件中获取父组件中的状态和方法。
 
-当 context 中包含数据时，如果要修改 context 中的数 据，一定不能直接修改，而是要通过 setState 修改，组件 state 的变化会创 建一个新的 context，然后重新传递给子组件。
+当 context 中包含数据时，如果要修改 context 中的数据，一定不能直接修改，而是要通过 setState 修改，组件 state 的变化会创建一个新的 context，然后重新传递给子组件。
+
+父组件
 
 ```js
 getChildContext() {
   return { onAddUser: this.handleAddUser } // 通过 context 传递一个函数
 }
-UserListContainer.childContextTypes = {
+Parent.childContextTypes = {
   onAddUser: PropTypes.func
 }
 ```
@@ -613,8 +625,15 @@ UserListContainer.childContextTypes = {
 
 ```js
 this.context.onAddUser(this.state.newUser)
+
+// 声明 context 的类型
+Child.contextTypes = {
+  onAddUser: PropTypes.func,
+}
 ```
 
-④ 消息队列（事件队列）：改变数据的组件发起一个消息，使用数据的组件监听这个消息，并在响应函数中触发 setState 来改变组件状态。
+> 缺点，数据来源不明。
+
+④ 消息队列（事件队列）：改变数据的组件发起一个消息，使用数据的组件监听这个消息，并在响应函数中触发 setState 来改变组件状态。和 vue 的 emit 类似。`Postal.js` 库可实现。
 
 ⑤ 状态管理库。
