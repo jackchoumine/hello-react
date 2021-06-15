@@ -4,10 +4,6 @@ import { HashRouter, Route, Link } from 'react-router-dom'
 const HocListBook = WithPersistentData(ListBook)
 
 class Home extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
   render() {
     return (
       <HashRouter>
@@ -19,10 +15,18 @@ class Home extends Component {
           <Link to='/books'>书籍</Link>
           <br />
           <Link to='/list-books'>书籍列表</Link>
+          <br />
+          <Link to='/render'>render例子</Link>
           {/*  类似 <router-view />  */}
           <Route path='/form' component={LoginForm} />
           <Route path='/books' component={Books} />
           <Route path='/list-books' component={HocListBook} />
+          <Route
+            path='/render'
+            render={() => {
+              return <h3>render函数</h3>
+            }}
+          />
         </div>
       </HashRouter>
     )
