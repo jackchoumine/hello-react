@@ -2,23 +2,19 @@
  * @Description: 应用入口
  * @Date: 2020-04-19 15:27:52
  * @Author: JackChouMine
- * @LastEditTime: 2020-05-05 04:27:39
- * @LastEditors: JackChouMine
+ * @LastEditTime: 2021-06-15 21:16:58 +0800
+ * @LastEditors: JackChou
  */
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import App from './App'
+// TODO 如何省略扩展名？
+import App from './views/App.jsx'
 import * as serviceWorker from './serviceWorker'
 
 //使用 ReactDOM.render 函数必须先导出 react-dom，
 //该库完成代表组件的 虚拟DOM 转为浏览器能识别 DOM节点。
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-)
+ReactDOM.render(<App />, document.getElementById('root'))
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
