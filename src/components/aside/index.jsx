@@ -11,6 +11,8 @@ class Aside extends Component {
         <div>
           <aside>
             <Link to='/'>基本配置</Link>
+            <br />
+            <Link to='/pass-params'>路由传参</Link>
           </aside>
         </div>
       </HashRouter>
