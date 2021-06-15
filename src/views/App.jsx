@@ -2,7 +2,7 @@
  * @Description: app 组件
  * @Date: 2020-04-19 15:27:52
  * @Author: JackChouMine
- * @LastEditTime: 2021-06-15 22:24:37 +0800
+ * @LastEditTime: 2021-06-15 22:34:17 +0800
  * @LastEditors: JackChou
  */
 import React, { Component } from 'react'
@@ -24,6 +24,7 @@ class App extends Component {
           <Aside />
         </div>
         <div style={rightStyle}>
+          {/* 改成 HashRouter 就不行了 */}
           <BrowserRouter>
             <Route exact path='/' component={Home} />
           </BrowserRouter>
