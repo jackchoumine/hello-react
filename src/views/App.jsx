@@ -2,15 +2,15 @@
  * @Description: app 组件
  * @Date: 2020-04-19 15:27:52
  * @Author: JackChouMine
- * @LastEditTime: 2021-06-22 14:58:15 +0800
+ * @LastEditTime: 2021-06-22 18:30:35 +0800
  * @LastEditors: JackChou
  */
 import React, { Component } from 'react'
 import './App.css'
 import { HashRouter, Route, Switch } from 'react-router-dom'
-import { HttpDemo} from '../components'
+import { HttpDemo } from '../components'
 import Home from './Home.jsx'
-import PassParams from './PassParams.jsx'
+import PassParams from './PassParams'
 // TODO 路径如何简写？
 import Aside from '../components/aside/index.jsx'
 const leftStyle = { width: '200px', height: '100vh', backgroundColor: '#e8e8e8' }

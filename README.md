@@ -66,3 +66,46 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+## 项目记录
+
+### antd 按需导入配置
+
+安装依赖，版本如下，需要特别注意 less-loader 的版本，高版本的后面可能会报错。
+
+```bash
+"babel-plugin-import": "^1.13.3",
+"customize-cra": "^1.0.0",
+"react-app-rewired": "^2.1.8",
+"antd": "^4.16.3",
+"less": "^4.1.1",
+"less-loader": "7.1.0",
+```
+
+根目录下编写`config-override.js`
+
+```js
+const { override, fixBabelImports, addLessLoader } = require('customize-cra')
+
+module.exports = override(
+  fixBabelImports('import', {
+    libraryName: 'antd',
+    libraryDirectory: 'es',
+    style: true,
+  }),
+  addLessLoader({
+    lessOptions: {
+      javascriptEnabled: true,
+      modifyVars: { '@primary-color': 'green' },
+    },
+  })
+)
+```
+
+改写 scripts:
+
+```js
+"start": "react-app-rewired start",
+"build": "react-app-rewired build",
+"test": "react-app-rewired test",
+```

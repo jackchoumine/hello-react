@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Button } from 'antd'
 import http from 'axios'
 class HttpDemo extends Component {
   state = {
@@ -13,7 +14,9 @@ class HttpDemo extends Component {
     const { students } = this.state
     return (
       <div>
-        <button onClick={this.sendHttp}>发送http</button>
+        <Button type='primary' onClick={this.sendHttp}>
+          发送http
+        </Button>
         <ul>
           {students.map(student => {
             return <li key={student.id}>{student.name}</li>
