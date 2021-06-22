@@ -7,20 +7,20 @@ class Params extends Component {
     this.state = { queryObj: this.parseQuery(), count: 0 }
     console.log('parent constructor')
   }
-  static getDerivedStateFromProps(props, state) {
-    console.log(state)
-    console.log('parent getDerivedStateFromProps')
-    return state
-  }
+  // static getDerivedStateFromProps(props, state) {
+  //   console.log(state)
+  //   console.log('parent getDerivedStateFromProps')
+  //   return state
+  // }
 
-  componentDidMount() {
-    console.log('parent componentDidMount')
-  }
+  // componentDidMount() {
+  //   console.log('parent componentDidMount')
+  // }
 
-  shouldComponentUpdate() {
-    console.log('parent shouldComponentUpdate')
-    return true
-  }
+  // shouldComponentUpdate() {
+  //   console.log('parent shouldComponentUpdate')
+  //   return true
+  // }
 
   render() {
     console.log('parent render')
@@ -39,18 +39,18 @@ class Params extends Component {
   add = () => {
     this.setState({ count: this.state.count + 1 })
   }
-  getSnapshotBeforeUpdate(prevProps, prevState) {
-    console.log('parent getSnapshotBeforeUpdate')
-    console.log(prevProps, prevState)
-    return '父组件'
-  }
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('parent componentDidUpdate')
-    console.log(prevProps, prevState, snapshot)
-  }
-  componentWillUnmount() {
-    console.log('parent componentWillUnmount')
-  }
+  // getSnapshotBeforeUpdate(prevProps, prevState) {
+  //   console.log('parent getSnapshotBeforeUpdate')
+  //   console.log(prevProps, prevState)
+  //   return '父组件'
+  // }
+  // componentDidUpdate(prevProps, prevState, snapshot) {
+  //   console.log('parent componentDidUpdate')
+  //   console.log(prevProps, prevState, snapshot)
+  // }
+  // componentWillUnmount() {
+  //   console.log('parent componentWillUnmount')
+  // }
   parseQuery() {
     const queryStr = this.props.location.search.slice(1).split('&')
     const queryObj = {}

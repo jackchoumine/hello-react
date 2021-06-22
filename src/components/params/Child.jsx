@@ -13,34 +13,34 @@ class Child extends Component {
     return {}
   }
 
-  componentDidMount() {
-    console.log('child componentDidMount')
-  }
+  // componentDidMount() {
+  //   console.log('child componentDidMount')
+  // }
 
-  shouldComponentUpdate() {
-    console.log('child shouldComponentUpdate')
-    return true
-  }
+  // shouldComponentUpdate() {
+  //   console.log('child shouldComponentUpdate')
+  //   return true
+  // }
 
   render() {
     console.log('child render')
     return <div>来自父组件：{this.props.count}</div>
   }
 
-  getSnapshotBeforeUpdate(prevProps, prevState) {
-    console.log('child getSnapshotBeforeUpdate')
-    console.log(prevProps, prevState)
-    return '子组件'
-  }
+  // getSnapshotBeforeUpdate(prevProps, prevState) {
+  //   console.log('child getSnapshotBeforeUpdate')
+  //   console.log(prevProps, prevState)
+  //   return '子组件'
+  // }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('child componentDidUpdate')
-    console.log(prevProps, prevState, snapshot)
-  }
+  // componentDidUpdate(prevProps, prevState, snapshot) {
+  //   console.log('child componentDidUpdate')
+  //   console.log(prevProps, prevState, snapshot)
+  // }
 
-  componentWillUnmount() {
-    console.log('child componentWillUnmount')
-  }
+  // componentWillUnmount() {
+  //   console.log('child componentWillUnmount')
+  // }
 }
 
 export default Child
