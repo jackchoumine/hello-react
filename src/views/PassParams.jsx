@@ -18,10 +18,17 @@ class PassParams extends Component {
         <br />
         <HashRouter>
           <Switch>
-            <Route path='/dynamic/:age' component={Params}></Route>
+            <Route path='/dynamic/:age' component={Params} key={this.state.age}></Route>
             <Route path='/query' component={Params}></Route>
           </Switch>
         </HashRouter>
+        <button
+          onClick={() => {
+            this.setState({ age: this.state.age + 1 })
+          }}
+        >
+          强制更新
+        </button>
       </div>
     )
   }
