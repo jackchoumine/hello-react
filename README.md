@@ -69,6 +69,28 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 ## 项目记录
 
+### 配置代理
+
+`npm i -D http-proxy-middleware`
+
+```js
+const { createProxyMiddleware } = require('http-proxy-middleware')
+const proxy = createProxyMiddleware
+module.exports = function (app) {
+  const dev1 = proxy('/api', {
+    target: 'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite: { '^/api': '' },
+  })
+  const dev2 = proxy('/api2', {
+    target: 'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite: { '^/api': '' },
+  })
+  app.use(dev1, dev2)
+}
+```
+
 ### antd 按需导入配置
 
 安装依赖，版本如下，需要特别注意 less-loader 的版本，高版本的后面可能会报错。
