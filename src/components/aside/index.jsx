@@ -13,6 +13,8 @@ class Aside extends Component {
             <Link to='/'>基本配置</Link>
             <br />
             <Link to='/pass-params'>路由传参</Link>
+            <br />
+            <Link to='/http'>http请求封装</Link>
           </aside>
         </div>
       </HashRouter>
