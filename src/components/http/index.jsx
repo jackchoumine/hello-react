@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Button } from 'antd'
 import http from 'axios'
+import { store, increment, decrement } from '../../redux'
 class HttpDemo extends Component {
   state = {
     students: [],
@@ -9,6 +10,12 @@ class HttpDemo extends Component {
     http.get('http://localhost:3000/api/students').then(res => {
       this.setState({ students: res.data })
     })
+  }
+  add = () => {
+    store.dispatch(increment(1))
+  }
+  mins = () => {
+    store.dispatch(decrement(1))
   }
   render() {
     const { students } = this.state
@@ -22,6 +29,14 @@ class HttpDemo extends Component {
             return <li key={student.id}>{student.name}</li>
           })}
         </ul>
+        <hr />
+        <Button onClick={this.add} type='info'>
+          加一
+        </Button>
+        <Button onClick={this.mins} type='info'>
+          减一
+        </Button>
+        <p>{store.getState()}</p>
       </div>
     )
   }
