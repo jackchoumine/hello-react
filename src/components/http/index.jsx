@@ -15,7 +15,7 @@ class HttpDemo extends Component {
     store.dispatch(increment(1))
   }
   mins = () => {
-    store.dispatch(decrement(1))
+    store.dispatch(decrement(1, 500))
   }
   render() {
     const { students } = this.state

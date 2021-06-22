@@ -2,10 +2,11 @@
  * @Description: redux
  * @Date: 2021-06-22 22:58:28 +0800
  * @Author: JackChou
- * @LastEditTime: 2021-06-23 02:12:34 +0800
+ * @LastEditTime: 2021-06-23 02:55:44 +0800
  * @LastEditors: JackChou
  */
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import countReducer from './countReducer'
-const store = createStore(countReducer)
+import thunk from 'redux-thunk'
+const store = createStore(countReducer, applyMiddleware(thunk))
 export default store

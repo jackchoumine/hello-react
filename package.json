@@ -24,7 +24,8 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "3.4.1",
-    "redux": "^4.1.0"
+    "redux": "^4.1.0",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "express": "^4.17.1",
