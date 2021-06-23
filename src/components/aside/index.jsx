@@ -15,6 +15,8 @@ class Aside extends Component {
             <Link to='/pass-params'>路由传参</Link>
             <br />
             <Link to='/http'>http请求封装</Link>
+            <br />
+            <Link to='/myForm'>受控组件</Link>
           </aside>
         </div>
       </HashRouter>

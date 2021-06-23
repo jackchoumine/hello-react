@@ -2,13 +2,13 @@
  * @Description: app 组件
  * @Date: 2020-04-19 15:27:52
  * @Author: JackChouMine
- * @LastEditTime: 2021-06-22 18:30:35 +0800
+ * @LastEditTime: 2021-06-23 19:33:59 +0800
  * @LastEditors: JackChou
  */
 import React, { Component } from 'react'
 import './App.css'
 import { HashRouter, Route, Switch } from 'react-router-dom'
-import { HttpDemo } from '../components'
+import { HttpDemo, MyForm } from '../components'
 import Home from './Home.jsx'
 import PassParams from './PassParams'
 // TODO 路径如何简写？
@@ -29,6 +29,8 @@ class App extends Component {
           <HashRouter>
             <Switch>
               {/* 精确匹配的放在前面 */}
+              <Route exact path='/myForm' component={MyForm} />
+              <Route exact path='/http' component={HttpDemo} />
               <Route exact path='/http' component={HttpDemo} />
               <Route exact path='/pass-params' component={PassParams} />
               <Route exact path='/query' component={PassParams} />
