@@ -17,6 +17,8 @@ class Aside extends Component {
             <Link to='/http'>http请求封装</Link>
             <br />
             <Link to='/myForm'>受控组件</Link>
+            <br />
+            <Link to='/modal'>modal</Link>
           </aside>
         </div>
       </HashRouter>

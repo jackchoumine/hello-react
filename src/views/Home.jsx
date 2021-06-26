@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { LoginForm, ListBook, Books, WithPersistentData } from '../components'
+import { LoginForm, ListBook, Books, WithPersistentData, Modal } from '../components'
 import { HashRouter, Route, Link, Switch } from 'react-router-dom'
 const HocListBook = WithPersistentData(ListBook)
 
@@ -20,6 +20,7 @@ class Home extends Component {
         <HashRouter>
           <Switch>
             <Route path='/form' component={LoginForm} />
+            <Route path='/modal' component={Modal} />
             <Route path='/books' component={Books} />
             <Route path='/list-books' component={HocListBook} />
             <Route
